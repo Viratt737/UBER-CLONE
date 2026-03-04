@@ -9,7 +9,10 @@ router.post('/register', [
 ], userController.registerUser
 );
 
-
+router.post('/login',[
+    body('email').isEmail().withMessage('Invail email'),
+    body('password').isLength({min : 6}).withMessage('password must me at leat 6 characters long')
+], userController.loginUser);
 
 
 
