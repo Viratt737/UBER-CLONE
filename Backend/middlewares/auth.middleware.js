@@ -1,7 +1,7 @@
 const userModel = require('../Models/user.model');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-
+const blackListTokenModel = require('../Models/blacklisttoken.model');
 module.exports.authUser = async (req, res, next) => {
 
     const token = req.cookies.token || 
