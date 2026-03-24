@@ -1,31 +1,9 @@
 import React from 'react'
-import { Link } from "react-router-dom"
 
-const Home = () => {
-    return (
-        <div>
-            <div className="bg-cover bg-center bg-[url('https://images.unsplash.com/photo-1619059558110-c45be64b73ae?q=80&w=687&auto=format&fit=crop')] h-screen pt-8 flex justify-between flex-col w-full">
-
-                <img
-                    className='w-16 ml-8'
-                    src="https://freelogopng.com/images/all_img/1659761100uber-logo-png.png"
-                    alt="uber"
-                />
-
-                <div className='bg-white py-6 px-6'>
-                    <h2 className='text-3xl font-bold'>Get Started with Uber</h2>
-
-                    <Link
-                        to="/login"
-                        className='flex items-center justify-center w-full bg-black text-white py-3 rounded-2xl mt-4'
-                    >
-                        Continue
-                    </Link>
-                </div>
-
-            </div>
-        </div>
-    )
+function Home() {
+  return (
+    <div>Home</div>
+  )
 }
 
 export default Home

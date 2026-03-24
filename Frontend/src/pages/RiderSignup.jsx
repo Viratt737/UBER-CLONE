@@ -16,21 +16,21 @@ const RiderSignup = () => {
     e.preventDefault()
 
     const data = {
-      role: 'rider', // 🔥 important (differentiate user vs rider)
+      role: 'rider', // important (differentiate user vs rider)
       email,
-      fullName: {
-        firstName: firstname,
-        lastName: lastname
+      fullname: {
+        firstname: firstname,
+        lastname: lastname
       },
       password
     }
 
     console.log(data)
 
-    // 👉 save in context
+    //  save in context
     setUser(data)
 
-    // 👉 redirect (rider dashboard)
+    //  redirect (rider dashboard)
     navigate('/rider-home')
 
     // reset

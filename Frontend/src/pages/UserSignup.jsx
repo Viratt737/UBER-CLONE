@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react'
 import { Link, useNavigate } from "react-router-dom"
 import { UserDataContext } from '../context/UserContext'
+import axios from 'axios'
 
 const UserSignup = () => {
 
@@ -9,35 +10,48 @@ const UserSignup = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const { setUser } = useContext(UserDataContext)
+  const {user, setUser } = useContext(UserDataContext)
   const navigate = useNavigate()
 
-  const submitHandler = (e) => {
-    e.preventDefault()
+const submitHandler = async (e) => {
+  e.preventDefault()
 
-    const data = {
-      email,
-      fullName: {
-        firstName: firstname,
-        lastName: lastname
-      },
-      password
+  const newUser = {
+    email,
+    fullname: {
+      firstname: firstname,
+      lastname: lastname
+    },
+    password
+  }
+
+  console.log(newUser)
+    
+  try {
+    const response = await axios.post(
+      `http://localhost:3000/users/register`,
+      newUser
+    )
+
+    const data = response.data
+
+    if (response.status === 201) {
+      setUser(data.user)
+      navigate('/home')
     }
 
-    console.log(data)
+    console.log(data.user) 
 
-    // 👉 save in context
-    setUser(data)
-
-    // 👉 redirect
-    navigate('/home')
-
-    // reset
-    setFirstname('')
-    setLastname('')
-    setEmail('')
-    setPassword('')
+  } catch (error) {
+    console.log(error.response?.data || error.message)
   }
+
+  // reset
+  setFirstname('')
+  setLastname('')
+  setEmail('')
+  setPassword('')
+}
 
   return (
     <div className='p-7 h-screen flex flex-col justify-between'>
