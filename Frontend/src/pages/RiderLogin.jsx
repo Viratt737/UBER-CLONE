@@ -45,10 +45,10 @@ const RiderLogin = () => {
             <div>
                 <img
                     className='w-16 mb-6'
-                    src="https://freelogopng.com/images/all_img/1659761100uber-logo-png.png"
+                    src="https://www.svgrepo.com/show/505031/uber-driver.svg"
                     alt="logo"
                 />
-
+        {/* <h1 className='text-3xl font-semibold mb-8'>Uber Rider</h1> */}
                 <form onSubmit={submitHandler}>
 
                     <h3 className='text-lg font-medium mb-2'>What's your email</h3>

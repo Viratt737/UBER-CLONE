@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
-import { Link } from "react-router-dom"
+import React, { useState, useContext } from 'react'
+import { Link, useNavigate } from "react-router-dom"
+import { UserDataContext } from '../context/UserContext'
 
 const RiderSignup = () => {
 
@@ -8,19 +9,31 @@ const RiderSignup = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
+  const { setUser } = useContext(UserDataContext)
+  const navigate = useNavigate()
+
   const submitHandler = (e) => {
     e.preventDefault()
 
     const data = {
-      firstname,
-      lastname,
+      role: 'rider', // 🔥 important (differentiate user vs rider)
       email,
+      fullName: {
+        firstName: firstname,
+        lastName: lastname
+      },
       password
     }
 
     console.log(data)
 
-    // reset fields
+    // 👉 save in context
+    setUser(data)
+
+    // 👉 redirect (rider dashboard)
+    navigate('/rider-home')
+
+    // reset
     setFirstname('')
     setLastname('')
     setEmail('')

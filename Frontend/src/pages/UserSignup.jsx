@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
-import { Link } from "react-router-dom"
+import React, { useState, useContext } from 'react'
+import { Link, useNavigate } from "react-router-dom"
+import { UserDataContext } from '../context/UserContext'
 
 const UserSignup = () => {
 
@@ -8,19 +9,30 @@ const UserSignup = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
+  const { setUser } = useContext(UserDataContext)
+  const navigate = useNavigate()
+
   const submitHandler = (e) => {
     e.preventDefault()
 
     const data = {
-      firstname,
-      lastname,
       email,
+      fullName: {
+        firstName: firstname,
+        lastName: lastname
+      },
       password
     }
 
     console.log(data)
 
-    // reset fields
+    // 👉 save in context
+    setUser(data)
+
+    // 👉 redirect
+    navigate('/home')
+
+    // reset
     setFirstname('')
     setLastname('')
     setEmail('')
@@ -92,9 +104,9 @@ const UserSignup = () => {
       </div>
 
       <div>
-      <p className='text-xs'>
-        By proceeding, you consent to get calls, WhatsApp or SMS messages, including by automated means, from Uber and its affiliates to the number provided.
-      </p>
+        <p className='text-xs'>
+          By proceeding, you consent to get calls, WhatsApp or SMS messages.
+        </p>
       </div>
     </div>
   )
