@@ -9,6 +9,7 @@ const UserSignup = () => {
   const [lastname, setLastname] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  // const [userData, setUserData] = useState({})
 
   const {user, setUser } = useContext(UserDataContext)
   const navigate = useNavigate()
@@ -17,16 +18,14 @@ const submitHandler = async (e) => {
   e.preventDefault()
 
   const newUser = {
-    email,
     fullname: {
       firstname: firstname,
       lastname: lastname
     },
-    password
+    email: email,
+    password: password
   }
 
-  console.log(newUser)
-    
   try {
     const response = await axios.post(
       `http://localhost:3000/users/register`,
@@ -40,13 +39,13 @@ const submitHandler = async (e) => {
       navigate('/home')
     }
 
-    console.log(data.user) 
-
   } catch (error) {
-    console.log(error.response?.data || error.message)
+    // ← PURANA HATAO, YE NAYA DAALO
+    console.log("STATUS:", error.response?.status)
+    console.log("ERROR DATA:", JSON.stringify(error.response?.data, null, 2))
+    alert(JSON.stringify(error.response?.data))
   }
 
-  // reset
   setFirstname('')
   setLastname('')
   setEmail('')
@@ -59,7 +58,6 @@ const submitHandler = async (e) => {
         <h1 className='text-3xl font-semibold mb-8'>Uber</h1>
 
         <form onSubmit={submitHandler}>
-
           <h3 className='text-lg font-medium mb-2'>First Name</h3>
           <input
             value={firstname}
