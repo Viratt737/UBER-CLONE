@@ -7,6 +7,8 @@ import UserSignup from './pages/UserSignup'
 import RiderLogin from './pages/RiderLogin'
 import RiderSignup from './pages/RiderSignup'
 import UserProtectWrapper from './pages/UserProtectWrapper'
+import UserLogout from './pages/UserLogout'
+import RiderHome from './pages/RiderHome'
 function App() {
 
   return (
@@ -21,6 +23,12 @@ function App() {
           <UserProtectWrapper>
             <Home />
         </UserProtectWrapper>} />
+        <Route path='/user/logout' element={
+          <UserProtectWrapper>
+            <UserLogout />
+          </UserProtectWrapper>
+        }/>
+        <Route path='/rider-home' element={<RiderHome/>} />
       </Routes>
      </div>
   )
