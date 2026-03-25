@@ -1,42 +1,35 @@
-import React, { useState } from 'react'
+import React, { useState , useContext} from 'react'
 import { Link, useNavigate } from "react-router-dom"
+import axios from 'axios'
+import {RiderDataContext} from '../context/RiderContext'
 
 const RiderLogin = () => {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
+    const {rider, setRider} = useContext(RiderDataContext) 
     const navigate = useNavigate()
 
     const submitHandler = async (e) => {
         e.preventDefault()
-
-        try {
-            const res = await fetch('http://localhost:5000/api/rider/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                credentials: 'include', // for cookies
-                body: JSON.stringify({
-                    email,
-                    password
-                })
-            })
-
-            const data = await res.json()
-            console.log(data)
-
-            if (res.ok) {
-                navigate('/rider/home')
-            } else {
-                alert(data.message || "Login failed")
-            }
-
-        } catch (err) {
-            console.error(err)
-            alert("Something went wrong")
+        
+        const riderData = {
+            email : email,
+            password
         }
+
+        const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/rider/login`, riderData)
+
+        if(response.status === 200){
+            const data = response.data
+            setRider(data.rider)
+            localStorage.setItem('token', data.token)
+            navigate('/rider-home')
+
+        }
+        setEmail('')
+        setPassword('')
     }
 
     return (
@@ -76,7 +69,7 @@ const RiderLogin = () => {
                         type='submit'
                         className='bg-green-600 hover:bg-green-700 text-white font-semibold mb-3 rounded-lg px-4 py-3 w-full text-lg transition duration-200'
                     >
-                        Sign in as Rider
+                        Login
                     </button>
 
                 </form>

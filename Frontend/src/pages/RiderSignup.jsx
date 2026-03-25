@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react'
 import { Link, useNavigate } from "react-router-dom"
-import { RiderDataContext } from '../context/RiderContext'  // ✅ RiderContext se import
+import { RiderDataContext } from '../context/RiderContext'  
 import axios from 'axios'
 
 const RiderSignup = () => {

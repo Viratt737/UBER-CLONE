@@ -30,7 +30,7 @@ const RiderContext = ({ children }) => {
   };
 
   return (
-    <RiderDataContext.Provider value={{value}}>
+    <RiderDataContext.Provider value={value}>
       {children}
     </RiderDataContext.Provider>
   )
